@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Burnett01\Piper;
 
+use Closure;
+
 final class Piper
 {
     private readonly Closure $fn;
@@ -18,7 +20,7 @@ final class Piper
     
     public function args(mixed ...$args): self
     {
-        $this->args += $args;
+        $this->args = [...$this->args, ...$args];
         
         return $this;
     }
