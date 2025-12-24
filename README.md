@@ -34,8 +34,8 @@ use Burnett01\Piper\Piper as _;
 
 $nonce = random_bytes(16)
       |> base64_encode(...)
-      |> _::_('strtr')->args('+/', '-_')->bind(...)
-      |> _::with(rtrim(...))->args('=')->bind(...);       
+      |> _::_('strtr')->args('+/', '-_')
+      |> _::with(rtrim(...))->args('=');       
 ```
 
 As you can see, the pipe operator ``|>`` understands single-argument methods such as ``base64_encode``
@@ -55,8 +55,8 @@ use Burnett01\Piper\Piper;
 
 $nonce = random_bytes(16)
       |> base64_encode(...)
-      |> Piper::_('strtr')->args('+/', '-_')->bind(...)
-      |> Piper::_(rtrim(...))->args('=')->bind(...);       
+      |> Piper::_('strtr')->args('+/', '-_')
+      |> Piper::_(rtrim(...))->args('=');       
 ```
 
 or aliased as ``_``
@@ -66,8 +66,8 @@ use Burnett01\Piper\Piper as _;
 
 $nonce = random_bytes(16)
       |> base64_encode(...)
-      |> _::_('strtr')->args('+/', '-_')->bind(...)
-      |> _::_('rtrim')->args('=')->bind(...);       
+      |> _::_('strtr')->args('+/', '-_')
+      |> _::_('rtrim')->args('=');       
 ```
 
 or use ``with`` alias
@@ -77,7 +77,7 @@ use Burnett01\Piper\Piper as _;
 
 $actual = -1234.5
       |> abs(...)
-      |> _::with(number_format(...))->args(2, '.', ',')->bind(...)
+      |> _::with(number_format(...))->args(2, '.', ',')
       |> urlencode(...);
 ```
 
@@ -110,19 +110,6 @@ Parameters:
 - Context: object
 
 - Returns: $this
-
-#### ``$obj->bind(mixed $carry)``
-
-Binds the pipe operators carry (eg. return value of the last).
-
-Parameters:
-
-- mixed ``$carry`` - The pipe operators carry (eg. ``...```)
-
-- Context: object
-
-- Returns: mixed
-
 
 
 

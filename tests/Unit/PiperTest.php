@@ -12,7 +12,7 @@ final class PiperTest extends TestCase
     {
         $actual = -1234.5
             |> abs(...)
-            |> _::_(number_format(...))->args(2, '.', ',')->bind(...)
+            |> _::_(number_format(...))->args(2, '.', ',')
             |> urlencode(...);
 
         self::assertSame('1%2C234.50', $actual);
@@ -22,7 +22,7 @@ final class PiperTest extends TestCase
     {
         $actual = -1234.5
             |> abs(...)
-            |> _::with(number_format(...))->args(2, '.', ',')->bind(...)
+            |> _::with(number_format(...))->args(2, '.', ',')
             |> urlencode(...);
 
         self::assertSame('1%2C234.50', $actual);
@@ -31,34 +31,34 @@ final class PiperTest extends TestCase
     public function testNativeStrlen(): void
     {
         $p = _::_(strlen(...));
-        self::assertSame(5, $p->bind('hello'));
+        self::assertSame(5, $p('hello'));
     }
 
     public function testNativeUrlencode(): void
     {
         $p = _::_('urlencode');
-        self::assertSame('a+b%2Bc', $p->bind('a b+c'));
+        self::assertSame('a+b%2Bc', $p('a b+c'));
     }
 
     public function testNativeRtrimWithCharMask(): void
     {
         $p = _::_(rtrim(...))->args(" \t\n");
-        self::assertSame('hello', $p->bind("hello \n\t "));
+        self::assertSame('hello', $p("hello \n\t "));
     }
 
     public function testNativeSubstrWithStartAndLength(): void
     {
         $p = _::_(substr(...))->args(1, 3);
-        self::assertSame('bcd', $p->bind('abcdef'));
+        self::assertSame('bcd', $p('abcdef'));
     }
 
     public function testNativeNumberFormatWithMultipleArgs(): void
     {
         $p = _::_(number_format(...))->args(2, '.', ',');
-        self::assertSame('1,234.50', $p->bind(1234.5));
+        self::assertSame('1,234.50', $p(1234.5));
     }
 
-    public function testBindCallsCallableWithCarryFirstThenArgs(): void
+    public function testCallsCallableWithCarryFirstThenArgs(): void
     {
         $p = _::_(
             static function (int $carry, int $a, int $b): int {
@@ -66,7 +66,7 @@ final class PiperTest extends TestCase
             }
         )->args(2, 3);
 
-        self::assertSame(6, $p->bind(1));
+        self::assertSame(6, $p(1));
     }
 
     public function testArgsCanBeAddedOverMultipleCallsAndPreservesOrder(): void
@@ -79,10 +79,10 @@ final class PiperTest extends TestCase
             ->args('A')
             ->args('B', 'C');
 
-        self::assertSame('xABC', $p->bind('x'));
+        self::assertSame('xABC', $p('x'));
     }
 
-    public function testBindWorksWithNoArgs(): void
+    public function testWorksWithNoArgs(): void
     {
         $p = _::_(
             static function (string $carry): string {
@@ -90,7 +90,7 @@ final class PiperTest extends TestCase
             }
         );
 
-        self::assertSame('HELLO', $p->bind('hello'));
+        self::assertSame('HELLO', $p('hello'));
     }
 
     public function testCallableCanBeAnInvokableObject(): void
@@ -104,6 +104,6 @@ final class PiperTest extends TestCase
 
         $p = _::_($invokable)->args(5);
 
-        self::assertSame(10, $p->bind(2));
+        self::assertSame(10, $p(2));
     }
 }

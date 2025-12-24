@@ -26,11 +26,11 @@ final class Piper
     public function args(mixed ...$args): self
     {
         $this->args = [...$this->args, ...$args];
-        
+
         return $this;
     }
-    
-    public function bind(mixed $carry): mixed
+
+    public function __invoke(mixed $carry): mixed
     {
         return ($this->fn)($carry, ...$this->args);
     }
