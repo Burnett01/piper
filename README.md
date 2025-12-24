@@ -4,7 +4,7 @@
 
 ## Why?
 
-In PHP the pipe operator (|>) only works with single-argument callables, such as ``strlen``, ``trim``, etc..,<br>
+In PHP the pipe operator (``|>``) only works with single-argument callables, such as ``strlen``, ``trim``, etc..,<br>
 
 ```php
 $nonce = random_bytes(16)
@@ -38,7 +38,10 @@ $nonce = random_bytes(16)
       |> _::_(rtrim(...))->args('=')->bind(...);       
 ```
 
-As you can see, the pipe operator ``|>`` understands single-argument methods such as ``base64_encode``.
+As you can see, the pipe operator ``|>`` understands single-argument methods such as ``base64_encode``
+
+and multi-argument methods such as ``strtr``, ``rtrim`` etc.
+
 The ellipsis ``...`` represents the first-class callable syntax.
 
 You can use a ``string`` or ``callable`` for passing the method.
