@@ -17,5 +17,9 @@ jobs:
         run: composer validate
       - name: Install dependencies
         run: composer install --no-interaction --no-progress --prefer-dist
+      - name: Run stan
+        run: composer stan
+      - name: Run code sniffer
+        run: composer sniff
       - name: Run tests
         run: composer test

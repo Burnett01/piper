@@ -1,0 +1,28 @@
+parameters:
+  level: max
+
+  paths:
+    - src
+    - tests
+
+  phpVersion: 80500
+
+  reportUnmatchedIgnoredErrors: true
+
+  excludePaths:
+    analyse:
+      - vendor
+      - .phpunit.cache (?)
+      - .phpstan.cache (?)
+
+  ignoreErrors:
+    - identifier: argument.type
+      message: '#Parameter \#1 \$string of function urlencode expects string, mixed given\.#'
+      paths:
+        - tests/Unit/PiperTest.php
+
+  bootstrapFiles:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+
+includes:
+  - vendor/phpstan/phpstan-phpunit/extension.neon
