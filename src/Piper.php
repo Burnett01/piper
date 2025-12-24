@@ -9,6 +9,11 @@ final class Piper
 {
     private readonly Closure $fn;
     private array $args = [];
+
+    public static function with(callable $fn): self
+    {
+        return self::_($fn);
+    }
     
     public static function _(callable $fn): self
     {

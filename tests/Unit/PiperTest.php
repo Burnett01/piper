@@ -18,6 +18,16 @@ final class PiperTest extends TestCase
         self::assertSame('1%2C234.50', $actual);
     }
 
+    public function testWithAlias(): void
+    {
+        $actual = -1234.5
+            |> abs(...)
+            |> _::with(number_format(...))->args(2, '.', ',')->bind(...)
+            |> urlencode(...);
+
+        self::assertSame('1%2C234.50', $actual);
+    }
+
     public function testNativeStrlen(): void
     {
         $p = _::_(strlen(...));

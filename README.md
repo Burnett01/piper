@@ -35,7 +35,7 @@ use Burnett01\Piper\Piper as _;
 $nonce = random_bytes(16)
       |> base64_encode(...)
       |> _::_('strtr')->args('+/', '-_')->bind(...)
-      |> _::_(rtrim(...))->args('=')->bind(...);       
+      |> _::with(rtrim(...))->args('=')->bind(...);       
 ```
 
 As you can see, the pipe operator ``|>`` understands single-argument methods such as ``base64_encode``
@@ -44,7 +44,7 @@ and multi-argument methods such as ``strtr``, ``rtrim`` etc.
 
 The ellipsis ``...`` represents the first-class callable syntax.
 
-You can use a ``string`` or ``callable`` for passing the method.
+You can use a ``callable`` as string or first-class syntax for passing the method.
 
 ## Usage
 
@@ -70,21 +70,36 @@ $nonce = random_bytes(16)
       |> _::_('rtrim')->args('=')->bind(...);       
 ```
 
+or use ``with`` alias
+
+```php
+use Burnett01\Piper\Piper as _;
+
+$actual = -1234.5
+      |> abs(...)
+      |> _::with(number_format(...))->args(2, '.', ',')->bind(...)
+      |> urlencode(...);
+```
+
 ## Api
 
-#### ``Piper::_(string $fn)``
+#### ``Piper::_(callable $fn)``
 
 Creates an instance of Piper for the specificed ``$fn``.
 
 Parameters:
 
-- string | callable ``$fn`` - The name of a callable as string (eg. ``'strlen'``) or as callable (eg. ``strlen(...)``)
+- callable ``$fn`` - The name of a callable as string (eg. ``'strlen'``) or as first-class syntax (eg. ``strlen(...)``)
 
 Context: static
 
 Returns: instance
 
-#### ``$obj->args``
+#### ``Piper::with(callable $fn)``
+
+alias for ``Piper::_(callable $fn)`` (see above)
+
+#### ``$obj->args(array<mixed> $args)``
 
 Wires the arguments for ``$fn``.
 
@@ -96,7 +111,7 @@ Parameters:
 
 - Returns: $this
 
-#### ``$obj->bind``
+#### ``$obj->bind(mixed $carry)``
 
 Binds the pipe operators carry (eg. return value of the last).
 
