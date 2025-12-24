@@ -61,7 +61,7 @@ You can use a ``callable`` as string or first-class syntax for passing the metho
 
 ## Usage
 
-> composer require burnett01/piper
+> ``composer require burnett01/piper``
 
 ```php
 use Burnett01\Piper\Piper;
