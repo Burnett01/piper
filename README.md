@@ -8,7 +8,7 @@
 
 **Why?**
 
-In PHP the pipe operator (``|>``) only works with single-argument callables, such as ``strlen``, ``trim``, etc..,<br>
+In PHP the pipe operator (``|>``) works with single-argument callables, such as ``strlen``, ``trim``, etc..,<br>
 
 ```php
 $nonce = random_bytes(16)
@@ -25,11 +25,19 @@ $nonce = random_bytes(16)
       |> rtrim(..., '=');       
 ```
 
+```php
+// works but too much code
+$nonce = random_bytes(16)
+      |> base64_encode(...)
+      |> (fn(string $s): string => strtr($s, '+/', '-_'))
+      |> (fn(string $s): string => rtrim($s, '='));    
+```
+
 This is where **Piper** comes into play!
 
 ## How?
 
-**Piper** is sort of a decorator/wrapper around a callable so that the pipe operator ``|>`` can use it.
+**Piper** is sort of a decorator/wrapper around a callable for the pipe operator ``|>``.
 
 ### Example
 
@@ -39,6 +47,7 @@ use Burnett01\Piper\Piper as _;
 $nonce = random_bytes(16)
       |> base64_encode(...)
       |> _::_('strtr')->args('+/', '-_')
+      // or use 'with'
       |> _::with(rtrim(...))->args('=');       
 ```
 
