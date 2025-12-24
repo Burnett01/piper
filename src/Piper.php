@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Burnett01\Piper;
+
 final class Piper
 {
     private readonly Closure $fn;
