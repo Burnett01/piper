@@ -2,7 +2,7 @@
 
 **Piper** enhances the PHP 8.5 pipe operator ([``|>``](https://php.watch/versions/8.5/pipe-operator)) with support for multi-argument functions/callables.
 
-[![phpunit](https://github.com/Burnett01/piper/actions/workflows/phpunit.yml/badge.svg)](https://github.com/Burnett01/piper/actions/workflows/phpunit.yml) [![phpstan](https://github.com/Burnett01/piper/actions/workflows/phpstan.yml/badge.svg)](https://github.com/Burnett01/piper/actions/workflows/phpstan.yml) [![phpcs](https://github.com/Burnett01/piper/actions/workflows/phpcs.yml/badge.svg)](https://github.com/Burnett01/piper/actions/workflows/phpcs.yml) ![Packagist Version](https://img.shields.io/packagist/v/burnett01/piper)
+[![phpunit](https://github.com/Burnett01/php-piper/actions/workflows/phpunit.yml/badge.svg)](https://github.com/Burnett01/php-piper/actions/workflows/phpunit.yml) [![phpstan](https://github.com/Burnett01/php-piper/actions/workflows/phpstan.yml/badge.svg)](https://github.com/Burnett01/php-piper/actions/workflows/phpstan.yml) [![phpcs](https://github.com/Burnett01/php-piper/actions/workflows/phpcs.yml/badge.svg)](https://github.com/Burnett01/php-piper/actions/workflows/phpcs.yml) ![Packagist Version](https://img.shields.io/packagist/v/burnett01/php-piper)
 
 
 <img src=".github/piper-logo.png" alt="Piper Logo" width="300" align="right"/>
@@ -42,7 +42,7 @@ This is where **Piper** comes into play!
 
 ### Usage
 
-> ``composer require burnett01/piper``
+> ``composer require burnett01/php-piper``
 
 PSR-4 function version:
 ```php

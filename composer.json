@@ -1,5 +1,5 @@
 {
-  "name": "burnett01/piper",
+  "name": "burnett01/php-piper",
   "description": "Piper enhances the PHP 8.5 pipe operator (|>) with support for multi-argument functions/callables.",
   "type": "library",
   "license": "MIT",
