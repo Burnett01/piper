@@ -31,3 +31,8 @@ final readonly class Piper
         return ($this->fn)($carry, ...$this->args);
     }
 }
+
+function pipe(callable $fn, mixed ...$args): Piper
+{
+    return Piper::to($fn, ...$args);
+}

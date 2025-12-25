@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Burnett01\Piper\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Burnett01\Piper\Piper as pipe;
+use Burnett01\Piper\Piper;
+
+use function Burnett01\Piper\pipe;
 
 final class PiperTest extends TestCase
 {
@@ -12,7 +14,7 @@ final class PiperTest extends TestCase
     {
         $actual = -1234.5
             |> abs(...)
-            |> pipe::to(number_format(...), 2, '.', ',')
+            |> Piper::to(number_format(...), 2, '.', ',')
             |> urlencode(...);
 
         self::assertSame('1%2C234.50', $actual);
@@ -22,7 +24,7 @@ final class PiperTest extends TestCase
     {
         $actual = -1234.5
             |> abs(...)
-            |> pipe::to(number_format(...), 2, '.', ',')
+            |> Piper::to(number_format(...), 2, '.', ',')
             |> urlencode(...);
 
         self::assertSame('1%2C234.50', $actual);
@@ -30,37 +32,37 @@ final class PiperTest extends TestCase
 
     public function testNativeStrlen(): void
     {
-        $p = pipe::with(strlen(...));
+        $p = Piper::with(strlen(...));
         self::assertSame(5, $p('hello'));
     }
 
     public function testNativeUrlencode(): void
     {
-        $p = pipe::with('urlencode');
+        $p = Piper::with('urlencode');
         self::assertSame('a+b%2Bc', $p('a b+c'));
     }
 
     public function testNativeRtrimWithCharMask(): void
     {
-        $p = pipe::with(rtrim(...), " \t\n");
+        $p = Piper::with(rtrim(...), " \t\n");
         self::assertSame('hello', $p("hello \n\t "));
     }
 
     public function testNativeSubstrWithStartAndLength(): void
     {
-        $p = pipe::with(substr(...), 1, 3);
+        $p = Piper::with(substr(...), 1, 3);
         self::assertSame('bcd', $p('abcdef'));
     }
 
     public function testNativeNumberFormatWithMultipleArgs(): void
     {
-        $p = pipe::with(number_format(...), 2, '.', ',');
+        $p = Piper::with(number_format(...), 2, '.', ',');
         self::assertSame('1,234.50', $p(1234.5));
     }
 
     public function testCallsCallableWithCarryFirstThenArgs(): void
     {
-        $p = pipe::with(
+        $p = Piper::with(
             static function (int $carry, int $a, int $b): int {
                 return $carry + $a + $b;
             },
@@ -73,7 +75,7 @@ final class PiperTest extends TestCase
 
     public function testArgsCanBeAddedOverMultipleCallsAndPreservesOrder(): void
     {
-        $p = pipe::with(
+        $p = Piper::with(
             static function (string $carry, string ...$parts): string {
                 return $carry . implode('', $parts);
             },
@@ -87,7 +89,7 @@ final class PiperTest extends TestCase
 
     public function testWorksWithNoArgs(): void
     {
-        $p = pipe::with(
+        $p = Piper::with(
             static function (string $carry): string {
                 return strtoupper($carry);
             }
@@ -105,8 +107,18 @@ final class PiperTest extends TestCase
             }
         };
 
-        $p = pipe::with($invokable, 5);
+        $p = Piper::with($invokable, 5);
 
         self::assertSame(10, $p(2));
+    }
+
+    public function testPipeFunction(): void
+    {
+        $actual = -1234.5
+            |> abs(...)
+            |> pipe(number_format(...), 2, '.', ',')
+            |> urlencode(...);
+
+        self::assertSame('1%2C234.50', $actual);
     }
 }

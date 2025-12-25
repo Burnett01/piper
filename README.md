@@ -39,15 +39,29 @@ This is where **Piper** comes into play!
 
 **Piper** is sort of a decorator/wrapper around a callable for the pipe operator ``|>``.
 
-### Example
+### Usage
 
+> ``composer require burnett01/piper``
+
+PSR-4 function version:
+```php
+use function Burnett01\Piper\pipe;
+
+$nonce = random_bytes(16)
+      |> base64_encode(...)
+      |> pipe('strtr', '+/', '-_')'
+      // with first-class syntax
+      |> pipe(rtrim(...), '=');       
+```
+
+PSR-4 class version:
 ```php
 use Burnett01\Piper\Piper as pipe;
 
 $nonce = random_bytes(16)
       |> base64_encode(...)
       |> pipe::to('strtr', '+/', '-_')
-      // or use 'with'
+      // or use 'with' + first-class syntax
       |> pipe::with(rtrim(...), '=');       
 ```
 
@@ -55,47 +69,37 @@ The ellipsis ``...`` represents the first-class callable syntax.
 
 You can use a ``callable`` as string or first-class syntax for passing the method.
 
-## Usage
-
-> ``composer require burnett01/piper``
+#### Other examples
 
 ```php
-use Burnett01\Piper\Piper as pipe;
-
-$nonce = random_bytes(16)
-      |> base64_encode(...)
-      |> pipe::to('strtr', '+/', '-_')
-      // with first-class syntax
-      |> pipe::to(rtrim(...), '=');       
-```
-
-or use ``with`` alias
-
-```php
-use Burnett01\Piper\Piper as pipe;
+use function Burnett01\Piper\pipe;
 
 $actual = -1234.5
       |> abs(...)
-      |> pipe::with(number_format(...), 2, '.', ',')
+      |> pipe(number_format(...), 2, '.', ',')
       |> urlencode(...);
 ```
 
 ## Api
 
-#### ``Piper::to(callable $fn, mixed ...$args)``
+- #### ``Piper::to(callable $fn, mixed ...$args)``
 
-Creates an instance of Piper for the specificed ``$fn``.
+  Creates an instance of Piper for the specificed ``$fn``.
 
-Parameters:
+  Parameters:
 
-- callable ``$fn`` - The name of a callable as string (eg. ``'strlen'``) or as first-class syntax (eg. ``strlen(...)``)
+  - callable ``$fn`` - The name of a callable as string (eg. ``'strlen'``) or as first-class syntax (eg. ``strlen(...)``)
 
-- variadic (mixed) ``$args`` - The arguments for ``$fn``
+  - variadic (mixed) ``$args`` - The arguments for ``$fn``
 
-Context: static
+  Context: static
 
-Returns: instance
+  Returns: instance
 
-#### ``Piper::with(callable $fn, mixed ...$args)``
+- #### ``Piper::with(callable $fn, mixed ...$args)``
 
-alias for ``Piper::to(callable $fn, mixed ...$args)`` (see above)
+  alias for ``Piper::to(callable $fn, mixed ...$args)`` (see above)
+
+- #### ``pipe(callable $fn, mixed ...$args)``
+
+  alias for ``Piper::to(callable $fn, mixed ...$args)`` (see above)
