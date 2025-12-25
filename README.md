@@ -49,7 +49,7 @@ use function Burnett01\Piper\pipe;
 
 $nonce = random_bytes(16)
       |> base64_encode(...)
-      |> pipe('strtr', '+/', '-_')'
+      |> pipe('strtr', '+/', '-_')
       // with first-class syntax
       |> pipe(rtrim(...), '=');       
 ```
