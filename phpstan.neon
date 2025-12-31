@@ -13,7 +13,6 @@ parameters:
     analyse:
       - vendor
       - .phpunit.cache (?)
-      - .phpstan.cache (?)
 
   ignoreErrors:
     - identifier: argument.type
