@@ -15,7 +15,7 @@ final class PiperTest extends TestCase
     {
         $actual = -1234.5
             |> abs(...)
-            |> Piper::to(number_format(...), 2, '.', ',')
+            |> Piper::with(number_format(...), 2, '.', ',')
             |> urlencode(...);
 
         self::assertSame('1%2C234.50', $actual);
